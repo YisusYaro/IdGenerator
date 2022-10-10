@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Query } from '../../application/query';
-import { QueryHandlersInformation } from './query-handlers-information';
+import type { QueryHandlersInformation } from './query-handlers-information';
 import { TYPES } from '../dependency-injection/types';
 
 export interface QueryBus {

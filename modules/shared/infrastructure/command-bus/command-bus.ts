@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Command } from '../../application/command';
-import { CommandHandlersInformation } from './command-handlers-information';
+import type { CommandHandlersInformation } from './command-handlers-information';
 import { TYPES } from '../dependency-injection/types';
 
 export interface CommandBus {
