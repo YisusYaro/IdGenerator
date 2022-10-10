@@ -1,13 +1,19 @@
-import { CommandBus } from "../../shared/infrastructure/command-bus/command-bus";
+import { QueryBus } from "../../shared/infrastructure/query-bus/query-bus";
 import { App } from "../../shared/infrastructure/dependency-injection/app";
 import { TYPES as SHARED_TYPES } from "../../shared/infrastructure/dependency-injection/types";
-import { CreateResourceCommand } from "../application/commands/create-resource.command";
+import { GetUUIDQuery } from "../application/queries/get-uuid.query";
+import { GetULIDQuery } from "../application/queries/get-ulid.query";
 
-const commandBus = App.getInstance()
+const queryBus = App.getInstance()
   .getContainer()
-  .get<CommandBus>(SHARED_TYPES.CommandBus);
+  .get<QueryBus>(SHARED_TYPES.QueryBus);
 
-export const createResource = async (form: any) => {
-  const command = new CreateResourceCommand(form);
-  await commandBus.execute(command);
+export const getUUID = async () => {
+  const query = new GetUUIDQuery();
+  return await queryBus.execute(query);
+};
+
+export const getULID = async () => {
+  const query = new GetULIDQuery();
+  return await queryBus.execute(query);
 };
