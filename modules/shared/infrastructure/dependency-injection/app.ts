@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
+import { setIdsModule } from '../../../resources/infrastructure/dependency-injection/ids.module';
 import { setSharedModule } from './shared.module';
-import { setResourcesModule } from '../../../resources/infrastructure/dependency-injection/resources.module';
 
 export class App {
   private static instance: App;
@@ -24,6 +24,6 @@ export class App {
 
   public setDependencyInjectionApp() {
     setSharedModule(this.container);
-    setResourcesModule(this.container);
+    setIdsModule(this.container);
   }
 }
