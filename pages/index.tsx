@@ -1,67 +1,42 @@
 import type { NextPage } from "next";
-import { ChangeEvent, FormEvent, useState, useEffect } from "react";
-import { createResource } from "../modules/resources/interface/controller";
+import { useEffect, useState } from "react";
+import { getUUID } from "../modules/resources/interface/controller";
+import { getULID } from "../modules/resources/interface/controller";
 import styles from "../styles/Home.module.css";
 
-enum ValidationErrors {
-  NAME_LENGTH = "El nombre debe tener una longitud mayor o igual a 5",
-}
-
 const Home: NextPage = () => {
-  const [form, setForm] = useState({
-    name: "",
-  });
-
-  const [showErrors, setShowErrors] = useState(false);
-
-  const [errors, setErrors] = useState({
-    name: false,
-  });
-
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    (async () => {
-      const errors = getErrors();
-      if (errors.name) {
-        setShowErrors(true);
-        return;
-      }
-      createResource(form);
-    })();
-  };
+  const [uuid, setUUID] = useState("");
+  const [ulid, setULID] = useState("");
 
   useEffect(() => {
-    setErrors(getErrors());
+    handleGetUUID();
+    handleGetULID();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form]);
+  }, []);
 
-  const getErrors = () => {
-    const errors = {
-      name: false,
-    };
+  const handleGetUUID = async () => {
+    const { uuid } = await getUUID();
+    setUUID(uuid);
+  };
 
-    if (form.name.length < 5) {
-      errors.name = true;
-    }
-
-    return errors;
+  const handleGetULID = async () => {
+    const { ulid } = await getULID();
+    setULID(ulid);
   };
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input name="name" type="text" onChange={handleOnChange} />
-        <input type="submit" />
-        {showErrors && errors.name && <p>{ValidationErrors.NAME_LENGTH}</p>}
-      </form>
+      <h1>ID Generator</h1>
+      <div className={styles.wrapper}>
+        <div className={styles.box}>
+          <button className={styles.button} onClick={handleGetUUID}>Generate UUID</button>
+          <div className={styles.result}>{uuid}</div>
+        </div>
+        <div className={styles.box}>
+          <button className={styles.button} onClick={handleGetULID}>Generate ULID</button>
+          <div className={styles.result}>{ulid}</div>
+        </div>
+      </div>
     </div>
   );
 };
