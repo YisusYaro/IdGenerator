@@ -1,43 +1,25 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
-import { getUUID } from "../modules/resources/interface/controller";
-import { getULID } from "../modules/resources/interface/controller";
-import styles from "../styles/Home.module.css";
+import Script from "next/script";
+import { IdGenerator } from "../components/IdGenerator";
 
 const Home: NextPage = () => {
-  const [uuid, setUUID] = useState("");
-  const [ulid, setULID] = useState("");
-
-  useEffect(() => {
-    handleGetUUID();
-    handleGetULID();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGetUUID = async () => {
-    const { uuid } = await getUUID();
-    setUUID(uuid);
-  };
-
-  const handleGetULID = async () => {
-    const { ulid } = await getULID();
-    setULID(ulid);
-  };
-
   return (
-    <div className={styles.container}>
-      <h1>ID Generator</h1>
-      <div className={styles.wrapper}>
-        <div className={styles.box}>
-          <button className={styles.button} onClick={handleGetUUID}>Generate UUID</button>
-          <div className={styles.result}>{uuid}</div>
-        </div>
-        <div className={styles.box}>
-          <button className={styles.button} onClick={handleGetULID}>Generate ULID</button>
-          <div className={styles.result}>{ulid}</div>
-        </div>
-      </div>
-    </div>
+    <>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-PP2DW81169"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-PP2DW81169');
+        `}
+      </Script>
+      <IdGenerator />
+    </>
   );
 };
 
