@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { getUUID } from "../modules/resources/interface/controller";
-import { getULID } from "../modules/resources/interface/controller";
+import { getULID, getUUID } from "../modules/resources/interface/controller";
 import styles from "../styles/Home.module.css";
+import { CopyButton } from "./CopyButton";
 
 export const IdGenerator: NextPage = () => {
   const [uuid, setUUID] = useState("");
@@ -29,12 +29,20 @@ export const IdGenerator: NextPage = () => {
       <h1>ID Generator</h1>
       <div className={styles.wrapper}>
         <div className={styles.box}>
-          <button className={styles.button} onClick={handleGetUUID}>Generate UUID</button>
-          <div className={styles.result}>{uuid}</div>
+          <button className={styles.button} onClick={handleGetUUID}>
+            Generate UUID
+          </button>
+          <div className={styles.result}>
+            {uuid} <CopyButton textToCopy={uuid} />
+          </div>
         </div>
         <div className={styles.box}>
-          <button className={styles.button} onClick={handleGetULID}>Generate ULID</button>
-          <div className={styles.result}>{ulid}</div>
+          <button className={styles.button} onClick={handleGetULID}>
+            Generate ULID
+          </button>
+          <div className={styles.result}>
+            {ulid} <CopyButton textToCopy={ulid} />
+          </div>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "clipboard": "^2.0.11",
     "inversify": "^6.0.1",
     "next": "12.2.1",
     "react": "18.2.0",
